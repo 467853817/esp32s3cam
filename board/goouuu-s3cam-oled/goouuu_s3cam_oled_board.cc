@@ -12,6 +12,8 @@
 
 #include <esp_log.h>
 #include <driver/i2c_master.h>
+#include <esp_lcd_panel_ops.h>
+#include <esp_lcd_panel_vendor.h>
 
 #define TAG "GoouuuS3CamOledBoard"
 
