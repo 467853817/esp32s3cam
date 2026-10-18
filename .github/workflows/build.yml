@@ -1,0 +1,46 @@
+name: Build XiaoZhi Firmware (goouuu-s3cam-oled)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: espressif/idf:v6.1
+    steps:
+      - name: Checkout xiaozhi-esp32 v2.5.2
+        uses: actions/checkout@v4
+        with:
+          repository: 78/xiaozhi-esp32
+          ref: v2.5.2
+          submodules: recursive
+          path: xiaozhi
+
+      - name: Checkout board overlay
+        uses: actions/checkout@v4
+        with:
+          path: overlay
+
+      - name: Apply custom board (goouuu-s3cam-oled)
+        run: |
+          cd xiaozhi
+          git apply --verbose ../overlay/goouuu-s3cam-oled.patch
+          cp -r ../overlay/board/goouuu-s3cam-oled main/boards/
+          ls main/boards/goouuu-s3cam-oled
+
+      - name: Build firmware
+        shell: bash
+        run: |
+          source $IDF_PATH/export.sh
+          cd xiaozhi
+          python scripts/build.py goouuu-s3cam-oled --name goouuu-s3cam-oled --language zh-CN --zip
+
+      - name: Upload firmware artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: goouuu-s3cam-oled-firmware
+          path: xiaozhi/releases/*.zip
+          if-no-files-found: error

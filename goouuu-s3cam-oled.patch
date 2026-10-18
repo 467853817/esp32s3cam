@@ -1,0 +1,38 @@
+diff --git a/main/CMakeLists.txt b/main/CMakeLists.txt
+index 633ef85..0d2c307 100644
+--- a/main/CMakeLists.txt
++++ b/main/CMakeLists.txt
+@@ -825,6 +825,10 @@ elseif(CONFIG_BOARD_TYPE_BREAD_COMPACT_WIFI_CAM)
+     set(BUILTIN_TEXT_FONT font_noto_sans_basic_16_4)
+     set(BUILTIN_ICON_FONT font_material_symbols_16_4)
+     set(DEFAULT_EMOJI_COLLECTION noto-color-emoji_64)
++elseif(CONFIG_BOARD_TYPE_GOOUUU_S3CAM_OLED)
++    set(BOARD_DIR "goouuu-s3cam-oled")
++    set(BUILTIN_TEXT_FONT font_noto_sans_basic_14_1)
++    set(BUILTIN_ICON_FONT font_material_symbols_14_1)
+ elseif(CONFIG_BOARD_TYPE_JIUCHUAN)
+     set(BOARD_DIR "jiuchuan-s3")
+     set(BUILTIN_TEXT_FONT font_noto_sans_basic_20_4)
+diff --git a/main/Kconfig.projbuild b/main/Kconfig.projbuild
+index 6a7c0fb..c50b4d2 100644
+--- a/main/Kconfig.projbuild
++++ b/main/Kconfig.projbuild
+@@ -179,6 +179,9 @@ choice BOARD_TYPE
+     config BOARD_TYPE_BREAD_COMPACT_WIFI_CAM
+         bool "Bread Compact Wi-Fi + LCD + Camera (面包板)"
+         depends on IDF_TARGET_ESP32S3
++    config BOARD_TYPE_GOOUUU_S3CAM_OLED
++        bool "GOOUUU ESP32-S3-CAM + OLED (面包板)"
++        depends on IDF_TARGET_ESP32S3
+     config BOARD_TYPE_CHD_ESP32S3_BOX
+         bool "CHD ESP32-S3-BOX (虫洞)"
+         depends on IDF_TARGET_ESP32S3
+@@ -738,7 +741,7 @@ choice WK_ESP32S3_DEV_DISPLAY_TYPE
+ endchoice
+ 
+ choice DISPLAY_OLED_TYPE
+-    depends on BOARD_TYPE_BREAD_COMPACT_WIFI || BOARD_TYPE_BREAD_COMPACT_ML307 || BOARD_TYPE_BREAD_COMPACT_NT26 || BOARD_TYPE_BREAD_COMPACT_ESP32 || BOARD_TYPE_HU_087 || (BOARD_TYPE_WK_ESP32S3_DEV && WK_ESP32S3_DEV_DISPLAY_OLED)
++    depends on BOARD_TYPE_BREAD_COMPACT_WIFI || BOARD_TYPE_BREAD_COMPACT_ML307 || BOARD_TYPE_BREAD_COMPACT_NT26 || BOARD_TYPE_BREAD_COMPACT_ESP32 || BOARD_TYPE_HU_087 || BOARD_TYPE_GOOUUU_S3CAM_OLED || (BOARD_TYPE_WK_ESP32S3_DEV && WK_ESP32S3_DEV_DISPLAY_OLED)
+     prompt "OLED Type"
+     default OLED_SSD1306_128X32
+     help
