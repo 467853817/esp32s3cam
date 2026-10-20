@@ -14,8 +14,105 @@
 #include <driver/i2c_master.h>
 #include <esp_lcd_panel_ops.h>
 #include <esp_lcd_panel_vendor.h>
+#include <esp_http_server.h>
+#include <img_converters.h>
+#include <esp_netif.h>
+#include <freertos/FreeRTOS.h>
+#include <freertos/task.h>
 
 #define TAG "GoouuuS3CamOledBoard"
+
+/*
+ * 摄像头网页服务（与小智共存于同一固件，端口 8080）：
+ *   GET /        预览页
+ *   GET /stream  MJPEG 实时视频流
+ *   GET /capture 单张 JPEG 照片
+ * ctrl_port 用 32769，避免与小智配网模式(80端口)的默认控制端口 32768 冲突。
+ */
+static esp_err_t cam_index_handler(httpd_req_t* req) {
+    static const char* page =
+        "<html><head><meta name='viewport' content='width=device-width,initial-scale=1'>"
+        "<title>ESP32-S3-CAM</title></head>"
+        "<body style='text-align:center;background:#111;color:#eee;font-family:sans-serif'>"
+        "<h3>Goouuu ESP32-S3-CAM</h3>"
+        "<img src='/stream' style='max-width:100%' alt='loading...'>"
+        "<p><a href='/capture' target='_blank' style='color:#8cf'>/capture 单张照片</a></p>"
+        "</body></html>";
+    httpd_resp_set_type(req, "text/html");
+    return httpd_resp_send(req, page, HTTPD_RESP_USE_STRLEN);
+}
+
+static esp_err_t cam_stream_handler(httpd_req_t* req) {
+    httpd_resp_set_type(req, "multipart/x-mixed-replace; boundary=frame");
+    httpd_resp_set_hdr(req, "Access-Control-Allow-Origin", "*");
+    char part[80];
+    while (true) {
+        camera_fb_t* fb = esp_camera_fb_get();
+        if (!fb) {  // 小智 AI 正在占用帧缓冲，稍后重试
+            vTaskDelay(pdMS_TO_TICKS(100));
+            continue;
+        }
+        uint8_t* jpg = nullptr;
+        size_t jpg_len = 0;
+        if (!frame2jpg(fb, 12, &jpg, &jpg_len)) {
+            esp_camera_fb_return(fb);
+            vTaskDelay(pdMS_TO_TICKS(100));
+            continue;
+        }
+        size_t n = snprintf(part, sizeof(part),
+                            "--frame\r\nContent-Type: image/jpeg\r\nContent-Length: %u\r\n\r\n",
+                            (unsigned)jpg_len);
+        if (httpd_resp_send_chunk(req, part, n) != ESP_OK ||
+            httpd_resp_send_chunk(req, (const char*)jpg, jpg_len) != ESP_OK ||
+            httpd_resp_send_chunk(req, "\r\n", 2) != ESP_OK) {
+            free(jpg);
+            esp_camera_fb_return(fb);
+            return ESP_FAIL;  // 客户端断开连接
+        }
+        free(jpg);
+        esp_camera_fb_return(fb);
+        vTaskDelay(pdMS_TO_TICKS(100));  // 约 5~10 fps
+    }
+}
+
+static esp_err_t cam_capture_handler(httpd_req_t* req) {
+    camera_fb_t* fb = esp_camera_fb_get();
+    if (!fb) {
+        httpd_resp_send_err(req, HTTPD_500_INTERNAL_SERVER_ERROR, "capture failed");
+        return ESP_FAIL;
+    }
+    uint8_t* jpg = nullptr;
+    size_t jpg_len = 0;
+    bool ok = frame2jpg(fb, 12, &jpg, &jpg_len);
+    esp_camera_fb_return(fb);
+    if (!ok || !jpg) {
+        httpd_resp_send_err(req, HTTPD_500_INTERNAL_SERVER_ERROR, "jpeg encode failed");
+        return ESP_FAIL;
+    }
+    httpd_resp_set_type(req, "image/jpeg");
+    httpd_resp_set_hdr(req, "Content-Disposition", "inline; filename=capture.jpg");
+    esp_err_t ret = httpd_resp_send(req, (const char*)jpg, jpg_len);
+    free(jpg);
+    return ret;
+}
+
+// 等设备拿到 IP 后，把预览地址显示到 OLED 上
+static void cam_ip_notify_task(void* arg) {
+    auto* board = static_cast<GoouuuS3CamOledBoard*>(arg);
+    for (int i = 0; i < 200; i++) {
+        esp_netif_ip_info_t info = {};
+        esp_netif_t* netif = esp_netif_get_handle_from_ifkey("WIFI_STA_DEF");
+        if (netif && esp_netif_get_ip_info(netif, &info) == ESP_OK && info.ip.addr != 0) {
+            char url[64];
+            snprintf(url, sizeof(url), "Cam: http://" IPSTR ":8080", IP2STR(&info.ip));
+            board->GetDisplay()->ShowNotification(url, 15000);
+            ESP_LOGI(TAG, "%s", url);
+            break;
+        }
+        vTaskDelay(pdMS_TO_TICKS(3000));
+    }
+    vTaskDelete(nullptr);
+}
 
 /*
  * GOOUUU ESP32-S3-CAM V1.5 定制板型：
@@ -129,6 +226,28 @@ private:
         camera_ = new Esp32Camera(config);
     }
 
+    void InitializeCameraWebServer() {
+        httpd_config_t cfg = HTTPD_DEFAULT_CONFIG();
+        cfg.server_port = 8080;
+        cfg.ctrl_port = 32769;  // 避开小智配网模式(80端口)默认 ctrl 端口 32768
+        cfg.stack_size = 8192;
+        httpd_handle_t server = nullptr;
+        if (httpd_start(&server, &cfg) == ESP_OK) {
+            const httpd_uri_t uris[] = {
+                { .uri = "/",          .method = HTTP_GET, .handler = cam_index_handler,   .user_ctx = nullptr },
+                { .uri = "/stream",    .method = HTTP_GET, .handler = cam_stream_handler,  .user_ctx = nullptr },
+                { .uri = "/capture",   .method = HTTP_GET, .handler = cam_capture_handler, .user_ctx = nullptr },
+            };
+            for (auto& u : uris) {
+                httpd_register_uri_handler(server, &u);
+            }
+            ESP_LOGI(TAG, "Camera web server started on port 8080");
+            xTaskCreate(cam_ip_notify_task, "camsrv_ip", 4096, this, 3, nullptr);
+        } else {
+            ESP_LOGE(TAG, "Failed to start camera web server");
+        }
+    }
+
     void InitializeButtons() {
         boot_button_.OnClick([this]() {
             auto& app = Application::GetInstance();
@@ -147,6 +266,7 @@ public:
         InitializeSsd1306Display();
         InitializeButtons();
         InitializeCamera();
+        InitializeCameraWebServer();
     }
 
     virtual Led* GetLed() override {
