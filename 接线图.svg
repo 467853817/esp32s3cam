@@ -1,0 +1,280 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 1120" width="1500" height="1120">
+  <rect width="1500" height="1120" fill="#0f1115"/>
+  <style>
+    text{font-family:'Noto Sans CJK SC','Source Han Sans SC','WenQuanYi Zen Hei','PingFang SC','Microsoft YaHei',sans-serif}
+  </style>
+
+  <!-- 标题 -->
+  <text x="46" y="48" fill="#e8ecf1" font-size="28" font-weight="700">GOOUUU ESP32-S3-CAM V1.5 × 面包板 接线图</text>
+  <text x="46" y="76" fill="#8b95a5" font-size="15">丝印 Gx = GPIOx ｜ 固件 goouuu-s3cam-oled ｜ INMP441 + MAX98357A + 0.91&quot; OLED + 板载 OV3660</text>
+
+  <!-- ================= 左侧开发板 ================= -->
+  <g>
+    <rect x="50" y="104" width="380" height="690" rx="14" fill="#1b2430" stroke="#33445a" stroke-width="2"/>
+    <text x="240" y="134" fill="#7fd1ff" font-size="18" font-weight="700" text-anchor="middle">ESP32-S3-CAM V1.5</text>
+    <text x="240" y="154" fill="#6c7889" font-size="12" text-anchor="middle">ESP32-S3-WROOM-1 N16R8 · 16MB Flash · 8MB PSRAM</text>
+
+    <rect x="120" y="166" width="240" height="30" rx="6" fill="#101820" stroke="#3a4a5c"/>
+    <text x="240" y="186" fill="#96a3b2" font-size="12" text-anchor="middle">24pin FPC 摄像头座（板载 OV3660）</text>
+
+    <rect x="100" y="206" width="280" height="100" rx="8" fill="#243040" stroke="#3d4f66"/>
+    <text x="240" y="238" fill="#c9d4e0" font-size="14" text-anchor="middle">ESP32-S3-WROOM-1 模组</text>
+    <text x="240" y="261" fill="#7d8b9c" font-size="12" text-anchor="middle">240MHz 双核 · 8MB PSRAM</text>
+    <text x="240" y="285" fill="#7d8b9c" font-size="12" text-anchor="middle">TF 卡槽位于板子背面</text>
+
+    <rect x="108" y="316" width="112" height="34" rx="5" fill="#0d1117" stroke="#3a4a5c"/>
+    <text x="164" y="338" fill="#8b95a5" font-size="11.5" text-anchor="middle">USB (TTL 烧录)</text>
+    <rect x="250" y="316" width="112" height="34" rx="5" fill="#0d1117" stroke="#3a4a5c"/>
+    <text x="306" y="338" fill="#8b95a5" font-size="11.5" text-anchor="middle">USB (OTG)</text>
+
+    <!-- 排针底座 -->
+    <rect x="66" y="378" width="26" height="380" rx="4" fill="#0b1016" stroke="#44586e"/>
+    <rect x="390" y="378" width="26" height="380" rx="4" fill="#0b1016" stroke="#44586e"/>
+
+    <!-- 左排 20 针（丝印在左，IO 注释在更左） -->
+    <g font-size="10.5" fill="#4f5a69" text-anchor="end">
+      <text x="24" y="415">IO4</text><text x="24" y="436">IO5</text><text x="24" y="457">IO6</text>
+      <text x="24" y="478">IO7</text><text x="24" y="499">IO15</text><text x="24" y="520">IO16</text>
+      <text x="24" y="541">IO17</text><text x="24" y="562">IO18</text><text x="24" y="583">IO8</text>
+      <text x="24" y="604">IO3</text><text x="24" y="625">IO46</text><text x="24" y="646">IO9</text>
+      <text x="24" y="667">IO10</text><text x="24" y="688">IO11</text><text x="24" y="709">IO12</text>
+      <text x="24" y="730">IO13</text><text x="24" y="751">IO14</text>
+    </g>
+    <g font-size="13.5" fill="#cfd8e3" text-anchor="end">
+      <text x="60" y="415">3V3</text>
+      <text x="60" y="436">EN</text>
+      <text x="60" y="457">G4</text>
+      <text x="60" y="478">G5</text>
+      <text x="60" y="499">G6</text>
+      <text x="60" y="520">G7</text>
+      <text x="60" y="541">G15</text>
+      <text x="60" y="562">G16</text>
+      <text x="60" y="583">G17</text>
+      <text x="60" y="604">G18</text>
+      <text x="60" y="625">G8</text>
+      <text x="60" y="646">G3</text>
+      <text x="60" y="667">G46</text>
+      <text x="60" y="688">G9</text>
+      <text x="60" y="709">G10</text>
+      <text x="60" y="730">G11</text>
+      <text x="60" y="751">G12</text>
+      <text x="60" y="772">G13</text>
+      <text x="60" y="793">G14</text>
+      <text x="60" y="814">GND</text>
+    </g>
+    <!-- 3V3 圆点 -->
+    <circle cx="79" cy="410" r="5.5" fill="#e04b3c"/>
+    <circle cx="79" cy="809" r="5.5" fill="#5b7fa8"/>
+
+    <!-- 右排 20 针 -->
+    <g font-size="13.5" fill="#cfd8e3">
+      <text x="422" y="415">5V0</text>
+      <text x="422" y="436">TX</text>
+      <text x="422" y="457">RX</text>
+      <text x="422" y="478">G1</text>
+      <text x="422" y="499">G2</text>
+      <text x="422" y="520">G42</text>
+      <text x="422" y="541">G41</text>
+      <text x="422" y="562">G40</text>
+      <text x="422" y="583">G39</text>
+      <text x="422" y="604">G38</text>
+      <text x="422" y="625">G37</text>
+      <text x="422" y="646">G36</text>
+      <text x="422" y="667">G35</text>
+      <text x="422" y="688">G0</text>
+      <text x="422" y="709">G45</text>
+      <text x="422" y="730">G48</text>
+      <text x="422" y="751">G47</text>
+      <text x="422" y="772">G21</text>
+      <text x="422" y="793">G19</text>
+      <text x="422" y="814">GND</text>
+    </g>
+    <g font-size="10.5" fill="#4f5a69">
+      <text x="424" y="430">IO43</text><text x="424" y="451">IO44</text><text x="424" y="472">IO1</text>
+      <text x="424" y="493">IO2</text><text x="424" y="514">IO42</text><text x="424" y="535">IO41</text>
+      <text x="424" y="556">IO40</text><text x="424" y="577">IO39</text>
+      <text x="424" y="598">IO38</text><text x="424" y="619">IO37</text><text x="424" y="640">IO36</text>
+      <text x="424" y="661">IO35</text><text x="424" y="682">IO0</text><text x="424" y="703">IO45</text>
+      <text x="424" y="724">IO48</text><text x="424" y="745">IO47</text><text x="424" y="766">IO21</text>
+      <text x="424" y="787">IO19</text>
+    </g>
+    <text x="500" y="576" fill="#c9a227" font-size="10.5">← G38~G40 = TF 卡槽引脚</text>
+    <circle cx="403" cy="410" r="5.5" fill="#e8a33d"/>
+
+    <rect x="270" y="690" width="60" height="24" rx="4" fill="#2a3542" stroke="#4a5b70"/>
+    <text x="300" y="707" fill="#cbd5e1" font-size="11.5" text-anchor="middle">BOOT</text>
+    <rect x="270" y="726" width="60" height="24" rx="4" fill="#2a3542" stroke="#4a5b70"/>
+    <text x="300" y="743" fill="#cbd5e1" font-size="11.5" text-anchor="middle">RST</text>
+  </g>
+
+  <!-- ================= 右侧面包板 ================= -->
+  <g>
+    <rect x="470" y="104" width="980" height="690" rx="12" fill="#f2f0e6" stroke="#c9c4b0" stroke-width="2"/>
+
+    <!-- 三条电源轨 -->
+    <rect x="486" y="120" width="948" height="22" rx="4" fill="#f7d9d3" stroke="#d9b3aa"/>
+    <text x="498" y="136" fill="#a83c2c" font-size="11.5" font-weight="700">+ 红色轨 = 3V3</text>
+    <rect x="486" y="150" width="948" height="22" rx="4" fill="#dfe6f0" stroke="#a9b6c6"/>
+    <text x="498" y="166" fill="#2b5f8f" font-size="11.5" font-weight="700">− 蓝色轨 = GND</text>
+    <rect x="486" y="180" width="948" height="22" rx="4" fill="#f7d9d3" stroke="#d9b3aa"/>
+    <text x="498" y="196" fill="#a83c2c" font-size="11.5" font-weight="700">+ 红色轨 2 = 5V0（功放专用）</text>
+
+    <!-- 主区 -->
+    <rect x="486" y="214" width="948" height="560" fill="#efece0"/>
+    <g fill="#c9c3af">
+      <circle cx="512" cy="234" r="2.8"/><circle cx="530" cy="234" r="2.8"/><circle cx="548" cy="234" r="2.8"/><circle cx="566" cy="234" r="2.8"/><circle cx="584" cy="234" r="2.8"/>
+      <circle cx="512" cy="262" r="2.8"/><circle cx="530" cy="262" r="2.8"/><circle cx="548" cy="262" r="2.8"/><circle cx="566" cy="262" r="2.8"/><circle cx="584" cy="262" r="2.8"/>
+      <circle cx="512" cy="290" r="2.8"/><circle cx="530" cy="290" r="2.8"/><circle cx="548" cy="290" r="2.8"/><circle cx="566" cy="290" r="2.8"/><circle cx="584" cy="290" r="2.8"/>
+      <circle cx="512" cy="318" r="2.8"/><circle cx="530" cy="318" r="2.8"/><circle cx="548" cy="318" r="2.8"/><circle cx="566" cy="318" r="2.8"/><circle cx="584" cy="318" r="2.8"/>
+      <circle cx="512" cy="346" r="2.8"/><circle cx="530" cy="346" r="2.8"/><circle cx="548" cy="346" r="2.8"/><circle cx="566" cy="346" r="2.8"/><circle cx="584" cy="346" r="2.8"/>
+      <circle cx="512" cy="374" r="2.8"/><circle cx="530" cy="374" r="2.8"/><circle cx="548" cy="374" r="2.8"/><circle cx="566" cy="374" r="2.8"/><circle cx="584" cy="374" r="2.8"/>
+      <circle cx="512" cy="402" r="2.8"/><circle cx="530" cy="402" r="2.8"/><circle cx="548" cy="402" r="2.8"/><circle cx="566" cy="402" r="2.8"/><circle cx="584" cy="402" r="2.8"/>
+      <circle cx="512" cy="430" r="2.8"/><circle cx="530" cy="430" r="2.8"/><circle cx="548" cy="430" r="2.8"/><circle cx="566" cy="430" r="2.8"/><circle cx="584" cy="430" r="2.8"/>
+      <circle cx="512" cy="458" r="2.8"/><circle cx="530" cy="458" r="2.8"/><circle cx="548" cy="458" r="2.8"/><circle cx="566" cy="458" r="2.8"/><circle cx="584" cy="458" r="2.8"/>
+      <circle cx="512" cy="486" r="2.8"/><circle cx="530" cy="486" r="2.8"/><circle cx="548" cy="486" r="2.8"/><circle cx="566" cy="486" r="2.8"/><circle cx="584" cy="486" r="2.8"/>
+      <circle cx="512" cy="514" r="2.8"/><circle cx="530" cy="514" r="2.8"/><circle cx="548" cy="514" r="2.8"/><circle cx="566" cy="514" r="2.8"/><circle cx="584" cy="514" r="2.8"/>
+      <circle cx="512" cy="542" r="2.8"/><circle cx="530" cy="542" r="2.8"/><circle cx="548" cy="542" r="2.8"/><circle cx="566" cy="542" r="2.8"/><circle cx="584" cy="542" r="2.8"/>
+      <circle cx="512" cy="570" r="2.8"/><circle cx="530" cy="570" r="2.8"/><circle cx="548" cy="570" r="2.8"/><circle cx="566" cy="570" r="2.8"/><circle cx="584" cy="570" r="2.8"/>
+      <circle cx="512" cy="598" r="2.8"/><circle cx="530" cy="598" r="2.8"/><circle cx="548" cy="598" r="2.8"/><circle cx="566" cy="598" r="2.8"/><circle cx="584" cy="598" r="2.8"/>
+      <circle cx="512" cy="626" r="2.8"/><circle cx="530" cy="626" r="2.8"/><circle cx="548" cy="626" r="2.8"/><circle cx="566" cy="626" r="2.8"/><circle cx="584" cy="626" r="2.8"/>
+      <circle cx="512" cy="654" r="2.8"/><circle cx="530" cy="654" r="2.8"/><circle cx="548" cy="654" r="2.8"/><circle cx="566" cy="654" r="2.8"/><circle cx="584" cy="654" r="2.8"/>
+      <circle cx="512" cy="682" r="2.8"/><circle cx="530" cy="682" r="2.8"/><circle cx="548" cy="682" r="2.8"/><circle cx="566" cy="682" r="2.8"/><circle cx="584" cy="682" r="2.8"/>
+      <circle cx="512" cy="710" r="2.8"/><circle cx="530" cy="710" r="2.8"/><circle cx="548" cy="710" r="2.8"/><circle cx="566" cy="710" r="2.8"/><circle cx="584" cy="710" r="2.8"/>
+      <circle cx="512" cy="738" r="2.8"/><circle cx="530" cy="738" r="2.8"/><circle cx="548" cy="738" r="2.8"/><circle cx="566" cy="738" r="2.8"/><circle cx="584" cy="738" r="2.8"/>
+    </g>
+    <!-- 中央沟槽 -->
+    <rect x="606" y="214" width="700" height="560" fill="#e6e2d4"/>
+    <text x="950" y="232" fill="#a49d88" font-size="11.5" text-anchor="middle">中央沟槽</text>
+    <text x="950" y="758" fill="#a49d88" font-size="11.5" text-anchor="middle">电源轨在沟槽处被分成两段，跨接时用一根线把左右两段连起来</text>
+  </g>
+
+  <!-- ================= 模块 ================= -->
+  <!-- INMP441 -->
+  <g>
+    <rect x="700" y="252" width="230" height="140" rx="8" fill="#16212b" stroke="#3f6b57"/>
+    <text x="845" y="278" fill="#8fe3a8" font-size="15.5" font-weight="700" text-anchor="middle">INMP441 麦克风</text>
+    <text x="845" y="296" fill="#7f92a6" font-size="11" text-anchor="middle">I2S 数字麦克风</text>
+    <g font-size="12.5" fill="#9fb0c2">
+      <text x="782" y="320">VDD</text><text x="916" y="320" text-anchor="end" fill="#e88a7a">3V3</text>
+      <text x="782" y="340">GND</text><text x="916" y="340" text-anchor="end" fill="#7aa5d8">GND</text>
+      <text x="782" y="360">L/R</text><text x="916" y="360" text-anchor="end" fill="#7aa5d8">GND</text>
+    </g>
+  </g>
+
+  <!-- MAX98357A -->
+  <g>
+    <rect x="700" y="440" width="230" height="160" rx="8" fill="#241a1a" stroke="#8a5a4a"/>
+    <text x="850" y="466" fill="#ffb27f" font-size="15.5" font-weight="700" text-anchor="middle">MAX98357A 功放</text>
+    <g font-size="12.5" fill="#c8b0a2">
+      <text x="782" y="490">VIN</text><text x="922" y="490" text-anchor="end" fill="#e8b45a">5V0</text>
+      <text x="782" y="512">GND</text><text x="922" y="512" text-anchor="end" fill="#7aa5d8">GND</text>
+      <text x="782" y="534">SD</text><text x="922" y="534" text-anchor="end" fill="#e88a7a">3V3</text>
+      <text x="782" y="556">GAIN</text><text x="922" y="556" text-anchor="end">悬空 9dB</text>
+    </g>
+    <text x="850" y="582" fill="#c8b0a2" font-size="11" text-anchor="middle">OUT+/OUT− → 喇叭 4Ω/8Ω</text>
+  </g>
+
+  <!-- OLED -->
+  <g>
+    <rect x="1090" y="252" width="255" height="140" rx="8" fill="#121c26" stroke="#3c6b8f"/>
+    <text x="1240" y="278" fill="#7fd1ff" font-size="15.5" font-weight="700" text-anchor="middle">0.91&quot; OLED 屏幕</text>
+    <text x="1240" y="296" fill="#7f92a6" font-size="11" text-anchor="middle">SSD1306 · 128×32 · I2C0</text>
+    <g font-size="12.5" fill="#9fb0c2">
+      <text x="1180" y="320">VCC</text><text x="1331" y="320" text-anchor="end" fill="#e88a7a">3V3</text>
+      <text x="1180" y="340">GND</text><text x="1331" y="340" text-anchor="end" fill="#7aa5d8">GND</text>
+      <text x="1180" y="360">SCL</text><text x="1331" y="360" text-anchor="end" fill="#5aa9e6">G47</text>
+      <text x="1180" y="380">SDA</text><text x="1331" y="380" text-anchor="end" fill="#5aa9e6">G21</text>
+    </g>
+  </g>
+
+  <!-- 喇叭 -->
+  <g>
+    <circle cx="1217" cy="520" r="56" fill="#1b2430" stroke="#4b5b70" stroke-width="2"/>
+    <circle cx="1217" cy="520" r="23" fill="#2b3a4b" stroke="#5c6f87"/>
+    <text x="1217" y="600" fill="#c3ccd8" font-size="13" text-anchor="middle">喇叭 4Ω / 8Ω · 2~3W</text>
+    <text x="1217" y="620" fill="#8b95a5" font-size="11.5" text-anchor="middle">接 MAX98357A 的 OUT+ / OUT−</text>
+  </g>
+
+  <!-- ================= 连线 ================= -->
+  <!-- 电源（实线） -->
+  <g fill="none" stroke-linecap="round" stroke-width="3">
+    <!-- 3V3 板 -> 红轨 -->
+    <path d="M79 410 C 220 380, 300 260, 486 131" stroke="#e04b3c"/>
+    <!-- 红轨 -> INMP441 VDD -->
+    <path d="M560 131 C 640 131, 668 200, 700 250" stroke="#e04b3c"/>
+    <!-- 红轨 -> OLED VCC -->
+    <path d="M600 131 C 900 131, 1040 180, 1090 250" stroke="#e04b3c"/>
+    <!-- 红轨 -> MAX SD -->
+    <path d="M505 131 C 500 300, 560 400, 700 466" stroke="#e04b3c"/>
+
+    <!-- GND 板 -> 蓝轨 -->
+    <path d="M79 809 C 220 800, 330 800, 486 161" stroke="#5b7fa8"/>
+    <!-- 蓝轨 -> INMP441 -->
+    <path d="M540 161 C 620 161, 660 200, 700 270" stroke="#5b7fa8"/>
+    <!-- 蓝轨 -> OLED -->
+    <path d="M600 161 C 900 161, 1040 210, 1090 270" stroke="#5b7fa8"/>
+    <!-- 蓝轨 -> MAX -->
+    <path d="M495 161 C 492 330, 570 430, 700 490" stroke="#5b7fa8"/>
+
+    <!-- 5V0 板 -> 红轨2 -->
+    <path d="M403 410 C 440 330, 460 260, 486 191" stroke="#e8a33d"/>
+    <!-- 红轨2 -> MAX VIN -->
+    <path d="M575 191 C 660 200, 690 350, 700 476" stroke="#e8a33d"/>
+  </g>
+
+  <!-- 信号（虚线） -->
+  <g fill="none" stroke-linecap="round" stroke-width="2.5" stroke-dasharray="9 6">
+    <!-- INMP441: G1 WS / G2 SCK / G42 SD -->
+    <path d="M403 473 C 480 452, 520 400, 570 360 C 615 325, 650 288, 700 282" stroke="#57c7a3"/>
+    <path d="M403 494 C 485 476, 525 425, 575 385 C 620 350, 652 300, 700 296" stroke="#57c7a3"/>
+    <path d="M403 515 C 490 500, 530 450, 580 410 C 625 375, 655 312, 700 310" stroke="#57c7a3"/>
+    <!-- MAX: G39 DIN / G40 BCLK / G41 LRC -->
+    <path d="M403 578 C 480 570, 525 545, 575 512 C 620 482, 655 458, 700 452" stroke="#e08a5a"/>
+    <path d="M403 599 C 485 595, 530 570, 580 538 C 625 510, 657 478, 700 472" stroke="#e08a5a"/>
+    <path d="M403 620 C 490 622, 535 598, 585 566 C 630 538, 659 498, 700 492" stroke="#e08a5a"/>
+    <!-- OLED: G47 SCL / G21 SDA -->
+    <path d="M403 746 C 540 720, 640 660, 760 570 C 880 480, 1010 400, 1090 332" stroke="#5aa9e6"/>
+    <path d="M403 767 C 550 744, 660 684, 780 592 C 900 500, 1020 412, 1090 352" stroke="#5aa9e6"/>
+  </g>
+
+  <!-- 线标签 -->
+  <g font-size="11.5" font-weight="700">
+    <text x="300" y="352" fill="#e04b3c">3V3</text>
+    <text x="300" y="786" fill="#5b7fa8">GND</text>
+    <text x="452" y="330" fill="#e8a33d">5V0</text>
+
+    <text x="520" y="292" fill="#57c7a3">WS ← G1</text>
+    <text x="520" y="342" fill="#57c7a3">SCK ← G2</text>
+    <text x="520" y="392" fill="#57c7a3">SD ← G42</text>
+
+    <text x="516" y="462" fill="#e08a5a">DIN ← G39</text>
+    <text x="516" y="504" fill="#e08a5a">BCLK ← G40</text>
+    <text x="516" y="546" fill="#e08a5a">LRC ← G41</text>
+
+    <text x="700" y="660" fill="#5aa9e6" transform="rotate(-30 700 660)">SCL ← G47</text>
+    <text x="880" y="640" fill="#5aa9e6" transform="rotate(-30 880 640)">SDA ← G21</text>
+  </g>
+
+  <!-- ================= 图例 ================= -->
+  <g>
+    <rect x="50" y="830" width="1400" height="260" rx="10" fill="#161c25" stroke="#2f3d4f"/>
+    <text x="74" y="862" fill="#e8ecf1" font-size="16" font-weight="700">图例 与 关键提示</text>
+
+    <g font-size="13" fill="#b6c0cd">
+      <rect x="74" y="880" width="30" height="4" fill="#e04b3c"/><text x="112" y="888">3V3 电源轨</text>
+      <rect x="240" y="880" width="30" height="4" fill="#5b7fa8"/><text x="278" y="888">GND 地轨</text>
+      <rect x="410" y="880" width="30" height="4" fill="#e8a33d"/><text x="448" y="888">5V0 电源轨</text>
+      <rect x="586" y="880" width="30" height="4" stroke="#57c7a3" stroke-dasharray="7 5"/><text x="624" y="888">I2S 音频信号</text>
+      <rect x="770" y="880" width="30" height="4" stroke="#5aa9e6" stroke-dasharray="7 5"/><text x="808" y="888">I2C 信号</text>
+    </g>
+
+    <g font-size="13" fill="#9aa6b5">
+      <text x="74" y="920">1. 丝印 Gx 就是 GPIOx，例：G42 = IO42、G47 = IO47、G21 = IO21、G1 = IO1。</text>
+      <text x="74" y="944">2. MAX98357A 的 SD 必须接高电平：接 3V3，或在模块端用短线把 SD 和 VIN 短接。接 GND 会关断；悬空则音量可能减半或无声。</text>
+      <text x="74" y="968">3. INMP441 的 L/R 必须接 GND（选左声道），与固件「单声道 + 左声道槽」输出匹配，音量最大。</text>
+      <text x="74" y="992">4. 面包板同一行的 5 个孔互相连通；电源轨被中央沟槽分成两段，跨接时用一根线把左右两段连起来。</text>
+      <text x="74" y="1016">5. 3V3 与 GND 各从板子拉一根到电源轨，模块全部从轨上取电 —— 这样板子上唯一的 3V3 / GND 排针就不够用了。</text>
+      <text x="74" y="1040" fill="#c9a227">6. 板载摄像头占用 G4~G14、G15~G18，这些脚不要另接模块；G38~G40 是 TF 卡槽引脚，本项目不插卡时可用作功放。</text>
+    </g>
+  </g>
+</svg>

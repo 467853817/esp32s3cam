@@ -14,7 +14,13 @@
 | 屏幕 | 0.91 寸 OLED，**I2C 接口，SSD1306 驱动，128×32**，地址 0x3C | 显示状态/对话内容 |
 | 摄像头 | 板载 **OV3660**（DVP） | 拍照/视觉（固件已保留） |
 
-## 二、接线表（定制固件 goouuu-s3cam-oled）
+## 二、接线图
+
+![接线图](接线图.png)
+
+> 完整矢量版：[接线图.svg](接线图.svg)
+
+## 三、接线表（定制固件 goouuu-s3cam-oled）
 
 > **丝印说明**：这块 GOOUUU ESP32-S3-CAM V1.5 的排针丝印以 **G** 开头（G1、G2、G42…），**Gx 就是 GPIOx**，与代码里的 IO 编号一一对应。下表两列都给，按「板载丝印」插线即可。
 > 电源丝印：`3V3` = 3.3V，`5V0` = 5V，`GND` = 地。
@@ -80,14 +86,14 @@
 > 所有音频/OLED 引脚均避开摄像头 DVP 引脚，OV3660 随时可用。
 > 唤醒/打断键不用接：板载 **BOOT 键（G0）** 即唤醒键。板载 WS2812 彩灯 = G48。
 
-## 三、固件编译（GitHub Actions 云端自动）
+## 四、固件编译（GitHub Actions 云端自动）
 
 1. 推送到 main 分支自动触发，或手动 `Actions → Build XiaoZhi Firmware → Run workflow`
 2. 编译流程：检出 xiaozhi-esp32 **v2.5.2** → 应用 `goouuu-s3cam-oled.patch` + `board/` 板型文件 → `espressif/idf:v6.1` 容器内 `scripts/build.py` 编译
 3. 编译完成后在运行页 **Artifacts** 下载 `goouuu-s3cam-oled-firmware`
 4. 解压得到 `merged-binary.bin`，整包烧录，**地址 0x0**
 
-## 四、烧录步骤
+## 五、烧录步骤
 
 1. Type-C 数据线连 **TTL 口**（CH343 串口）到电脑
 2. 按住 **BOOT** → 短按 **RST** → 松开 BOOT，进入下载模式
@@ -96,13 +102,13 @@
    - [Flash Download Tool](https://www.espressif.com.cn/zh-hans/support/download/other-tools)：选 ESP32-S3、地址 0x0、40MHz、DoNotChgBin
 4. 烧完按 RST 重启
 
-## 五、配网与激活
+## 六、配网与激活
 
 1. 连接热点 `Xiaozhi-XXXX` → 浏览器访问 `192.168.4.1` → 填家中 Wi-Fi（仅 2.4GHz）
 2. 设备播报 6 位验证码 → [xiaozhi.me](https://xiaozhi.me) 控制台添加设备绑定
 3. 喊 **"你好小智"** 开始对话；BOOT 键 = 唤醒/打断键
 
-## 六、摄像头网页预览（固件内置）
+## 七、摄像头网页预览（固件内置）
 
 固件已内置 HTTP 摄像头服务（与小智共存，端口 **8080**），设备联网后：
 
@@ -112,7 +118,7 @@
 
 设备 IP 可在路由器后台查看；联网成功后 **OLED 会显示一次预览地址**（约 15 秒）。注意与小智的 AI 拍照共用帧缓冲，边看流边让 AI"看"偶尔会有一方丢一帧，属正常现象。
 
-## 七、TODO
+## 八、TODO
 
 - [x] 定制板型编译通过（OLED + 摄像头共存）
 - [ ] 接线并烧录，点亮 0.91" OLED
